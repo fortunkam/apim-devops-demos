@@ -1,0 +1,37 @@
+apimServiceName: bootcamp-apim-prod
+apis:
+- description: Dad-Jokes-As-A-Service API
+  displayName: Dad Joke
+  name: dad-joke
+  openApiSpec: swagger.json
+  openApiSpecFormat: swagger
+  policy: policies/all_operations.policy.xml
+  suffix: joke
+  operations:
+    get-a-random-joke:
+      policy: policies/get_random_joke.policy.xml
+    get-joke:
+      policy: policies/get_joke.policy.xml
+    search-for-jokes:
+      policy: policies/search_jokes.policy.xml
+  products: DadJokeProduct
+backends:
+- title: ICanHazDadJoke
+  description: Dad-Jokes-As-A-Service
+  url: https://icanhazdadjoke.com/
+  protocol: http
+namedValues:
+- displayName: DadJokePageLimit
+  value: 10
+  secret: false
+products:
+- name: DadJokeProduct
+  displayName: DadJokeProduct
+  subscriptionRequired: true
+  state: Published
+tags:
+- displayName: Joke
+- displayName: Search
+
+outputLocation: .\templates
+version: 0.0.1

@@ -1,0 +1,149 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Dad Joke",
+        "description": "",
+        "version": "1.0"
+    },
+    "basePath": "/joke",
+    "paths": {
+        "/get-random-joke": {
+            "get": {
+                "tags": ["Joke"],
+                "summary": "Get a Random Joke",
+                "operationId": "get-a-random-joke",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/SingleJokeResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/get-joke": {
+            "get": {
+                "tags": ["Joke"],
+                "summary": "Get Joke",
+                "operationId": "get-joke",
+                "parameters": [{
+                    "name": "id",
+                    "in": "query",
+                    "description": "The id of the joke",
+                    "required": true,
+                    "type" : "string"
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/SingleJokeResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/joke-search": {
+            "post": {
+                "tags": ["Joke", "Search"],
+                "summary": "Search For Jokes",
+                "operationId": "search-for-jokes",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {"in": "body", "name": "body", "description": "The search criteria", "required": true, "schema": { "$ref": "#/definitions/JokeSearchRequest" }}
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/JokeSearchResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "SingleJokeResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "joke": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "JokeSearchRequest" : {
+            "type": "object",
+            "properties": {
+                "term": {
+                    "type": "string"
+                },
+                "page": {
+                    "type": "integer"
+                }
+            }
+        },
+        "JokeSearchResponse" : {
+            "type": "object",
+            "properties": {
+                "current_page": {
+                    "type": "integer"
+                },
+                "limit": {
+                    "type": "integer"
+                },
+                "next_page": {
+                    "type": "integer"
+                },
+                "previous_page": {
+                    "type": "integer"
+                },
+                "results": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "joke": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "id",
+                            "joke"
+                        ]
+                    }
+                },
+                "search_term": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "total_jokes": {
+                    "type": "integer"
+                },
+                "total_pages": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}

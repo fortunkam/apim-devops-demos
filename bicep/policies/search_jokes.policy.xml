@@ -1,0 +1,31 @@
+<policies>
+    <inbound>
+        <base />
+        <rewrite-uri template="/search" copy-unmatched-params="false" />
+        <set-header name="Accept" exists-action="override">
+            <value>application/json</value>
+        </set-header>
+        <set-variable name="jsonBody" value="@{
+            return context.Request.Body.As<JObject>();
+        }" />
+        <set-query-parameter name="page" exists-action="override">
+            <value>@(((JObject)context.Variables["jsonBody"])["page"].ToString())</value>
+        </set-query-parameter>
+        <set-query-parameter name="term" exists-action="override">
+            <value>@(((JObject)context.Variables["jsonBody"])["term"].ToString())</value>
+        </set-query-parameter>
+        <set-query-parameter name="limit" exists-action="override">
+            <value>{{ DadJokePageLimit }}</value>
+        </set-query-parameter>
+        <set-method>GET</set-method>
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <base />
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>

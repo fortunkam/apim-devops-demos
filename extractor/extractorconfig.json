@@ -1,0 +1,7 @@
+{
+    "baseFileName": "base",
+    "sourceApimName": "bootcamp-apim-dev",
+    "destinationApimName": "bootcamp-apim-prod",
+    "resourceGroup": "apim-demo",
+    "fileFolder":".\\templates"
+}

@@ -1,0 +1,18 @@
+<policies>
+    <inbound>
+        <base />
+        <rewrite-uri template="/j/{id}" copy-unmatched-params="false" />
+        <set-header name="Accept" exists-action="override">
+            <value>application/json</value>
+        </set-header>
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <base />
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>
